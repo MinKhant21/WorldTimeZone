@@ -4,9 +4,15 @@ void main() => runApp(MaterialApp(
   home:Home(),
 ));
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int skillLevel = 0 ;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -21,6 +27,7 @@ class Home extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Center(
                 child: CircleAvatar(
                   backgroundImage: NetworkImage('https://thewellesleynews.com/wp-content/uploads/2020/09/avatar.jpg'),
@@ -56,7 +63,7 @@ class Home extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
               Text(
-                  '10',
+                  '$skillLevel',
                   style: TextStyle(
                       color: Colors.amber,
                       fontSize: 25,
@@ -79,10 +86,24 @@ class Home extends StatelessWidget {
                    ),
                  )
                ],
-             )
+             ),
+
             ],
+        ),
+
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: (){
+          setState(() {
+            skillLevel+=1;
+          });
+        },
+        child: Icon(
+            Icons.add
         ),
       ),
     );
+
   }
 }
