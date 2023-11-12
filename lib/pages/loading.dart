@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:timezoneproject/services/world_time.dart';
+
 class Loading extends StatefulWidget {
   const Loading({super.key});
 
@@ -10,9 +11,9 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   void getTimeData() async{
-    Uri url = Uri.parse("http://worldtimeapi.org/api/timezone/Asia/Yangon");
-     http.Response response =  await http.get(url);
-     print(response.body);
+    WorldTime worldTime = WorldTime(endurl:'Asia/Yangon');
+    await worldTime.getTime();
+    print(worldTime.time);
   }
 
   @override
