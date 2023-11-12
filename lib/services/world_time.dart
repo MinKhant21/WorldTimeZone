@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 class WorldTime {
   String? time ;
+  bool? isDayTime;
   String endurl;
   WorldTime({required this.endurl});
 
@@ -18,7 +19,7 @@ class WorldTime {
 
     DateTime now = DateTime.parse(datetime);
     now = now.add(Duration(hours: int.parse(offset)));
-
+    isDayTime = now.hour >= 0 && now.hour <=12 ? true : false;
     time = DateFormat.jm().format(now);
   }
 
