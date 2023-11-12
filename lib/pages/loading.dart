@@ -13,19 +13,23 @@ class _LoadingState extends State<Loading> {
   void getTimeData() async{
     WorldTime worldTime = WorldTime(endurl:'Asia/Yangon');
     await worldTime.getTime();
-    print(worldTime.time);
+    Navigator.pushReplacementNamed(context,'/home',arguments: {
+      'time' : worldTime.time,
+      'location' : 'yangon'
+    });
   }
 
   @override
   void initState(){
     super.initState();
     getTimeData();
+    print('loading');
   }
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Text('loading'),
+      body: Center(child: Text('loading')),
     );
   }
 }

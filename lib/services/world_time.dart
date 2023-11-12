@@ -11,11 +11,15 @@ class WorldTime {
   {
     Uri url = Uri.parse("http://worldtimeapi.org/api/timezone/${endurl}");
     http.Response response =  await http.get(url);
-    Map resData = jsonDecode(response.body);
-    DateTime datetime = DateTime.parse(resData['datetime']);
-    String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(datetime);
-     time = formattedDateTime;
-     // print(formattedDateTime.runtimeType);
+    Map data = jsonDecode(response.body);
+
+    String datetime = data['datetime'];
+    String offset = data['utc_offset'].substring(1,3);
+
+    DateTime now = DateTime.parse(datetime);
+    now = now.add(Duration(hours: int.parse(offset)));
+
+    time = DateFormat.jm().format(now);
   }
 
 
