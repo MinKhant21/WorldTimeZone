@@ -11,14 +11,14 @@ class _HomeState extends State<Home> {
   Map data = {};
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
     String bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
     return Scaffold(
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/${bgImage}'),
+              image: AssetImage('assets/day/${bgImage}'),
               fit: BoxFit.fill
             ),
           ),
@@ -29,9 +29,20 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       // Handle button press
-                      Navigator.pushNamed(context, '/location');
+                      dynamic result = await Navigator.pushNamed(context, '/location');
+                      if(result != null){
+                        setState(() {
+                          data = {
+                            'time': result['time'],
+                            'location': result['location'],
+                            'isDayTime': result['isDayTime'],
+                            'flag': result['flag']
+                          };
+                        });
+                      }
+
                     },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

@@ -6,7 +6,9 @@ class WorldTime {
   String? time ;
   bool? isDayTime;
   String endurl;
-  WorldTime({required this.endurl});
+  String flag;
+  String location;
+  WorldTime({required this.endurl,required this.location, required this.flag});
 
   Future<void> getTime() async
   {
@@ -19,7 +21,7 @@ class WorldTime {
 
     DateTime now = DateTime.parse(datetime);
     now = now.add(Duration(hours: int.parse(offset)));
-    isDayTime = now.hour >= 0 && now.hour <=12 ? true : false;
+    isDayTime = now.hour > 6 && now.hour < 20 ? true : false;
     time = DateFormat.jm().format(now);
   }
 
