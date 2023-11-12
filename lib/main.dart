@@ -1,109 +1,33 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(MaterialApp(
-  home:Home(),
+import 'quatedata.dart';
+void main () => runApp(MaterialApp(
+  home: Quate(),
 ));
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Quate extends StatefulWidget {
+  const Quate({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Quate> createState() => _QuateState();
 }
 
-class _HomeState extends State<Home> {
-  int skillLevel = 0 ;
+class _QuateState extends State<Quate> {
+  List<QuateData> quates = [
+     QuateData(name:'a',age: 23, location:'mdy'),
+     QuateData(name:'b',age: 23, location:'mdy'),
+     QuateData(name:'c',age: 23, location:'mdy'),
+
+  ];
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: Colors.grey[900],
+    return Scaffold(
       appBar: AppBar(
-        title: Text("My ID Card !"),
+        title:Text('Quate'),
         centerTitle: true,
-        backgroundColor:Colors.grey[600],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(30),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              Center(
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage('https://thewellesleynews.com/wp-content/uploads/2020/09/avatar.jpg'),
-                  radius: 40,
-                ),
-              ),
-              Divider(
-                height: 60,
-              ),
-              Text(
-                'Name',
-                style: TextStyle(
-                  color: Colors.white,
-                  letterSpacing: 5.0
-                )
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                  'Kaung Min Khant',
-                  style: TextStyle(
-                      color: Colors.amber,
-                      letterSpacing: 5.0,
-                      fontSize: 25
-                  )
-              ),
-              SizedBox(height: 30.0),
-              Text(
-                  'Current Skill Level',
-                  style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 5.0
-                  )
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                  '$skillLevel',
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold
-                  )
-              ),
-              SizedBox(height: 30.0),
-             Row(
-               children: [
-                 Icon(
-                    Icons.mail,
-                    color: Colors.grey,
-                 ),
-                 SizedBox(width: 10.0),
-                 Text(
-                     'kmk@gmail.com',
-                   style: TextStyle(
-                     color:Colors.grey[400],
-                     letterSpacing: 5,
-                   ),
-                 )
-               ],
-             ),
-
-            ],
-        ),
-
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        onPressed: (){
-          setState(() {
-            skillLevel+=1;
-          });
-        },
-        child: Icon(
-            Icons.add
-        ),
+      body: Column(
+        children:quates.map((quate) => Text('${quate.name} - ${quate.age} - ${quate.location}')).toList(),
       ),
     );
-
   }
 }
